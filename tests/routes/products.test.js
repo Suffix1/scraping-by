@@ -78,7 +78,9 @@ describe('Product Routes', () => {
                 currentPrice: 29.99,
                 originalPrice: 39.99,
                 lastChecked: new Date().toISOString(),
-                emailSent: false
+                emailSent: false,
+                onSale: true,
+                message: "Product is on sale! (€39.99 → €29.99)"
             };
             
             Product.create.mockResolvedValueOnce(createdProduct);
