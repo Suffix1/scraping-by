@@ -1,0 +1,140 @@
+[
+  {
+    "@context": "http://schema.org/",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "UNIQLO homepage",
+            "item": "https://www.uniqlo.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "WOMEN",
+            "item": "https://www.uniqlo.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Knitwear",
+            "item": "https://www.uniqlo.com/women/jumpers"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Knitwear",
+            "item": "https://www.uniqlo.com/women/jumpers/jumpers"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "3D Knit",
+            "item": "https://www.uniqlo.com/women/jumpers/jumpers/3d-knit"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "name": "3D Knit Katoenen Trui met Ronde Hals",
+            "item": "https://www.uniqlo.com/nl/nl/products/E461090-000/00?colorDisplayCode=32&sizeDisplayCode=003"
+          }
+        ]
+      },
+      {
+        "@type": "Product",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": 4.6,
+          "reviewCount": 253
+        },
+        "brand": {
+          "@type": "Brand",
+          "name": "UNIQLO"
+        },
+        "category": "women / jumpers / jumpers / 3d knit",
+        "description": "Katoenen dames trui.<br>- We raden aan om dit item opgevouwen te bewaren, om de originele vorm en dimensies te behouden.",
+        "image": "https://image.uniqlo.com/UQ/ST3/eu/imagesgoods/461090/item/eugoods_32_461090_3x4.jpg",
+        "mpn": "E461090-000",
+        "name": "3D Knit Katoenen Trui met Ronde Hals",
+        "offers": {
+          "@type": "Offer",
+          "price": "39.9",
+          "priceCurrency": "EUR",
+          "originalPrice": "",
+          "originalPriceCurrency": "",
+          "url": "https://www.uniqlo.com/nl/nl/products/E461090-000/00?colorDisplayCode=32&sizeDisplayCode=003",
+          "availability": "InStock"
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": "Giulia"
+            },
+            "itemReviewed": {
+              "@type": "Thing",
+              "image": "https://image.uniqlo.com/UQ/ST3/eu/imagesgoods/461090/item/eugoods_32_461090_3x4.jpg",
+              "name": "3D Knit Katoenen Trui met Ronde Hals"
+            },
+            "datePublished": "2025-04-30",
+            "description": "I love this jumper! It has a very nice fit, it's comfortable and useful in middle seasons. Although the website says it's blue, it's more greenish to me, but I love the colour! I actually bought it also in white, and it would be great to have more spring/summer shades. It fits a bit tighter than other jumpers from Uniqlo, so I bought a S but I had to change it with a M.",
+            "name": "Great Jumper for spring and fall",
+            "reviewRating": {
+              "@type": "Rating",
+              "bestRating": 5,
+              "ratingValue": 5,
+              "worstRating": 1
+            }
+          },
+          {
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": "Jjones"
+            },
+            "itemReviewed": {
+              "@type": "Thing",
+              "image": "https://image.uniqlo.com/UQ/ST3/eu/imagesgoods/461090/item/eugoods_32_461090_3x4.jpg",
+              "name": "3D Knit Katoenen Trui met Ronde Hals"
+            },
+            "datePublished": "2025-04-28",
+            "description": "Bien coupé et très confortable, ce pull en coton est tout simplement parfait!",
+            "name": "Pull 3D",
+            "reviewRating": {
+              "@type": "Rating",
+              "bestRating": 5,
+              "ratingValue": 5,
+              "worstRating": 1
+            }
+          },
+          {
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": "Debs"
+            },
+            "itemReviewed": {
+              "@type": "Thing",
+              "image": "https://image.uniqlo.com/UQ/ST3/eu/imagesgoods/461090/item/eugoods_32_461090_3x4.jpg",
+              "name": "3D Knit Katoenen Trui met Ronde Hals"
+            },
+            "datePublished": "2025-04-26",
+            "description": "Great for summer months. Colour a pinky brick colour and certainly not red.",
+            "name": "Smart casual jumper",
+            "reviewRating": {
+              "@type": "Rating",
+              "bestRating": 5,
+              "ratingValue": 4,
+              "worstRating": 1
+            }
+          }
+        ],
+        "url": "https://www.uniqlo.com/nl/nl/products/E461090-000/00?colorDisplayCode=32&sizeDisplayCode=003"
+      }
+    ]
+  }
+]

@@ -41,9 +41,9 @@ async function scrapeUniqloProduct(url, size) {
             originalPrice: 49.90
         },
         'E480161-000': {
-            name: 'Heren Warme Voering V-Hals Trui',
-            currentPrice: 19.90,
-            originalPrice: 29.90
+            name: 'Universal Movies UT T-Shirt (Back to the Future)',
+            currentPrice: 12.90,
+            originalPrice: 19.90
         }
     };
     
