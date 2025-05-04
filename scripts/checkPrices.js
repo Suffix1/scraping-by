@@ -36,9 +36,10 @@ async function checkPrices() {
                 }
 
                 // Update product in database
-                product.currentPrice = productInfo.currentPrice;
-                product.lastChecked = new Date();
-                await product.save();
+                await Product.findByIdAndUpdate(product._id, {
+                    currentPrice: productInfo.currentPrice,
+                    lastChecked: new Date().toISOString()
+                });
             } catch (error) {
                 console.error(`Error checking price for ${product.name}:`, error);
             }

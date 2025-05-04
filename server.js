@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 
@@ -8,13 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
-
-// MongoDB Connection - only connect if not already connected (for tests)
-if (process.env.NODE_ENV !== 'test' || mongoose.connection.readyState === 0) {
-    mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/uniqlo-tracker')
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('MongoDB connection error:', err));
-}
 
 // Import routes
 const productRoutes = require('./routes/products');

@@ -1,5 +1,77 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# Technology Stack
+
+## Frontend
+- Simple HTML/CSS/JavaScript UI
+- Minimalist design with:
+  - Input field for Uniqlo product URL
+  - Input field for specific size
+  - List display of tracked items showing:
+    - Product name
+    - Current price
+    - Original price
+    - Size
+    - Last checked date
+  - Remove item functionality
+
+## Backend
+- Node.js with Express
+- MongoDB for storing:
+  - Tracked Uniqlo items (URL, size)
+  - Price history
+  - User email preferences
+- Web scraping specifically for Uniqlo:
+  - Product pages
+  - Size availability
+  - Price information
+- Gmail SMTP for notifications
+
+## Testing Stack
+- Jest for unit and integration testing
+- Supertest for API testing
+- Puppeteer for scraper testing
+- ESLint for code quality
+
+## Cloud Hosting
+- Free tier options:
+  - Render.com
+  - Railway.app
+  - MongoDB Atlas for database
+
+## CI/CD
+- GitHub Actions for:
+  - Running tests
+  - Linting code
+  - Deploying to production
+
+## Features
+- Daily price checking (once per day)
+- Email alerts for any price drop
+- Price history tracking
+- Simple item management
+- Basic user interface
+
+## Data Model
+- Product:
+  - URL
+  - Size
+  - Current price
+  - Original price
+  - Last checked date
+  - Email notification sent (boolean)
+
+## Development Tools
+- VS Code as primary IDE
+- Git for version control
+- Docker for containerization
+- Postman for API testing
+
+## DevOps
+- AWS for cloud hosting
+- Terraform for infrastructure
+- Prometheus for monitoring
+

@@ -18,20 +18,37 @@ router.post('/', async (req, res) => {
     try {
         const { url, size } = req.body;
         
-        // Scrape product information
-        const productInfo = await scrapeUniqloProduct(url, size);
+        // Validate input
+        if (!url || !size) {
+            return res.status(400).json({ message: 'URL and size are required' });
+        }
         
-        const product = new Product({
+        // Scrape product information
+        console.log(`Checking price for ${url} in size ${size}...`);
+        const productInfo = await scrapeUniqloProduct(url, size);
+        console.log(`Found product: ${productInfo.name}, Current price: €${productInfo.currentPrice}, Original price: €${productInfo.originalPrice}`);
+        
+        // Check if it's on sale
+        let onSale = productInfo.currentPrice < productInfo.originalPrice;
+        
+        // Create new product
+        const newProduct = await Product.create({
             url,
             size,
             name: productInfo.name,
             currentPrice: productInfo.currentPrice,
-            originalPrice: productInfo.originalPrice
+            originalPrice: productInfo.originalPrice,
+            onSale: onSale
         });
         
-        const newProduct = await product.save();
-        res.status(201).json(newProduct);
+        // Return product with sale status
+        res.status(201).json({
+            ...newProduct,
+            onSale,
+            message: onSale ? `Product is on sale! (€${productInfo.originalPrice.toFixed(2)} → €${productInfo.currentPrice.toFixed(2)})` : 'Product is not on sale'
+        });
     } catch (error) {
+        console.error('Error adding product:', error);
         res.status(400).json({ message: error.message });
     }
 });
@@ -39,8 +56,8 @@ router.post('/', async (req, res) => {
 // Delete product
 router.delete('/:id', async (req, res) => {
     try {
-        const product = await Product.findByIdAndDelete(req.params.id);
-        if (!product) {
+        const success = await Product.findByIdAndDelete(req.params.id);
+        if (!success) {
             return res.status(404).json({ message: 'Product not found' });
         }
         res.json({ message: 'Product deleted' });

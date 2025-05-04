@@ -1,9 +1,11 @@
 const { checkPrices } = require('../../scripts/checkPrices');
 const Product = require('../../models/Product');
 const { scrapeUniqloProduct } = require('../../scrapers/uniqlo');
+const db = require('../../db/fileDb');
 
 // Mock dependencies
 jest.mock('../../scrapers/uniqlo');
+jest.mock('../../models/Product');
 jest.mock('nodemailer', () => ({
     createTransport: jest.fn().mockReturnValue({
         sendMail: jest.fn().mockResolvedValue({ messageId: 'test-id' })
@@ -11,22 +13,29 @@ jest.mock('nodemailer', () => ({
 }));
 
 describe('Price Checking Script', () => {
-    beforeEach(async () => {
-        await Product.deleteMany({});
+    beforeEach(() => {
         jest.clearAllMocks();
     });
 
     it('should not send email when no price drops are detected', async () => {
-        // Create test product
-        const product = new Product({
+        // Mock test product
+        const mockProduct = {
+            _id: 'test-id-123',
             url: 'https://www.uniqlo.com/nl/nl/test-product',
             size: 'M',
             name: 'Test Product',
             currentPrice: 29.99,
-            originalPrice: 39.99
+            originalPrice: 39.99,
+            lastChecked: new Date().toISOString()
+        };
+        
+        // Setup mocks
+        Product.find.mockResolvedValueOnce([mockProduct]);
+        Product.findByIdAndUpdate.mockResolvedValueOnce({
+            ...mockProduct,
+            lastChecked: new Date().toISOString()
         });
-        await product.save();
-
+        
         // Mock the scraper to return the same price
         scrapeUniqloProduct.mockResolvedValueOnce({
             name: 'Test Product',
@@ -39,23 +48,35 @@ describe('Price Checking Script', () => {
         
         expect(result.success).toBe(true);
         expect(result.priceDrops).toBe(false);
-        expect(scrapeUniqloProduct).toHaveBeenCalledWith(product.url, product.size);
-        
-        // Verify product was updated
-        const updatedProduct = await Product.findById(product._id);
-        expect(updatedProduct.lastChecked).not.toEqual(product.lastChecked);
+        expect(scrapeUniqloProduct).toHaveBeenCalledWith(mockProduct.url, mockProduct.size);
+        expect(Product.findByIdAndUpdate).toHaveBeenCalledWith(
+            mockProduct._id, 
+            expect.objectContaining({
+                currentPrice: 29.99,
+                lastChecked: expect.any(String)
+            })
+        );
     });
 
     it('should send email when price drops are detected', async () => {
-        // Create test product
-        const product = new Product({
+        // Mock test product
+        const mockProduct = {
+            _id: 'test-id-123',
             url: 'https://www.uniqlo.com/nl/nl/test-product',
             size: 'M',
             name: 'Test Product',
             currentPrice: 29.99,
-            originalPrice: 39.99
+            originalPrice: 39.99,
+            lastChecked: new Date().toISOString()
+        };
+        
+        // Setup mocks
+        Product.find.mockResolvedValueOnce([mockProduct]);
+        Product.findByIdAndUpdate.mockResolvedValueOnce({
+            ...mockProduct,
+            currentPrice: 19.99,
+            lastChecked: new Date().toISOString()
         });
-        await product.save();
 
         // Mock the scraper to return a lower price
         scrapeUniqloProduct.mockResolvedValueOnce({
@@ -69,22 +90,29 @@ describe('Price Checking Script', () => {
         
         expect(result.success).toBe(true);
         expect(result.priceDrops).toBe(true);
-        
-        // Verify product price was updated
-        const updatedProduct = await Product.findById(product._id);
-        expect(updatedProduct.currentPrice).toBe(19.99);
+        expect(Product.findByIdAndUpdate).toHaveBeenCalledWith(
+            mockProduct._id, 
+            expect.objectContaining({
+                currentPrice: 19.99,
+                lastChecked: expect.any(String)
+            })
+        );
     });
 
     it('should handle scraper errors gracefully', async () => {
-        // Create test product
-        const product = new Product({
+        // Mock test product
+        const mockProduct = {
+            _id: 'test-id-123',
             url: 'https://www.uniqlo.com/nl/nl/test-product',
             size: 'M',
             name: 'Test Product',
             currentPrice: 29.99,
-            originalPrice: 39.99
-        });
-        await product.save();
+            originalPrice: 39.99,
+            lastChecked: new Date().toISOString()
+        };
+        
+        // Setup mocks
+        Product.find.mockResolvedValueOnce([mockProduct]);
 
         // Mock the scraper to throw an error
         scrapeUniqloProduct.mockRejectedValueOnce(new Error('Scraper error'));
@@ -92,9 +120,6 @@ describe('Price Checking Script', () => {
         const result = await checkPrices();
         
         expect(result.success).toBe(true); // Overall process should still succeed
-        
-        // Product should remain unchanged
-        const updatedProduct = await Product.findById(product._id);
-        expect(updatedProduct.currentPrice).toBe(product.currentPrice);
+        expect(Product.findByIdAndUpdate).not.toHaveBeenCalled();
     });
 }); 

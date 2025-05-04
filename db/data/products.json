@@ -1,0 +1,41 @@
+[
+  {
+    "url": "https://www.uniqlo.com/nl/nl/products/E475296-000/00?colorDisplayCode=05&sizeDisplayCode=004",
+    "size": "M",
+    "name": "Heren 3D Knit Naadloze Trui",
+    "currentPrice": 49.9,
+    "originalPrice": 49.9,
+    "onSale": false,
+    "lastChecked": "2025-05-04T18:49:55.641Z",
+    "emailSent": false,
+    "_id": "1746384595641",
+    "createdAt": "2025-05-04T18:49:55.641Z",
+    "updatedAt": "2025-05-04T18:49:55.641Z"
+  },
+  {
+    "url": "https://www.uniqlo.com/nl/nl/products/E461090-000/00?colorDisplayCode=32&sizeDisplayCode=003",
+    "size": "s",
+    "name": "Dames 3D Knit Katoenen Trui met Ronde Hals",
+    "currentPrice": 49.9,
+    "originalPrice": 49.9,
+    "onSale": false,
+    "lastChecked": "2025-05-04T18:50:20.285Z",
+    "emailSent": false,
+    "_id": "1746384620285",
+    "createdAt": "2025-05-04T18:50:20.285Z",
+    "updatedAt": "2025-05-04T18:50:20.285Z"
+  },
+  {
+    "url": "https://www.uniqlo.com/nl/nl/products/E480161-000/00?colorDisplayCode=09&sizeDisplayCode=003",
+    "size": "M",
+    "name": "Dames Universal Movies UT T-Shirt (Back to the Future)",
+    "currentPrice": 49.9,
+    "originalPrice": 49.9,
+    "onSale": false,
+    "lastChecked": "2025-05-04T18:50:46.178Z",
+    "emailSent": false,
+    "_id": "1746384646179",
+    "createdAt": "2025-05-04T18:50:46.179Z",
+    "updatedAt": "2025-05-04T18:50:46.179Z"
+  }
+]

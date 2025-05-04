@@ -46,10 +46,51 @@
         .sale {
             color: red;
         }
+        .status-badge {
+            display: inline-block;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 5px;
+            color: white;
+        }
+        .on-sale {
+            background-color: #e53935;
+        }
+        .no-sale {
+            background-color: #757575;
+        }
+        .loading {
+            display: none;
+            margin-top: 10px;
+        }
+        .loading.active {
+            display: block;
+        }
+        .alert {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .alert-success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+        .alert-error {
+            background-color: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+        }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <h1>Uniqlo Price Tracker</h1>
+    
+    <div id="alert" class="alert hidden"></div>
     
     <div class="form-group">
         <label for="productUrl">Product URL:</label>
@@ -62,16 +103,38 @@
     </div>
     
     <button onclick="addProduct()">Add Product</button>
+    <div id="loading" class="loading">Checking price... This may take a few seconds.</div>
     
     <div class="product-list" id="productList">
         <!-- Products will be listed here -->
     </div>
 
     <script>
+        // Function to show alert
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert alert-${type}`;
+            alert.classList.remove('hidden');
+            
+            // Hide after 5 seconds
+            setTimeout(() => {
+                alert.classList.add('hidden');
+            }, 5000);
+        }
+        
         // Function to add a new product
         async function addProduct() {
             const url = document.getElementById('productUrl').value;
             const size = document.getElementById('size').value;
+            
+            if (!url || !size) {
+                showAlert('Please enter both URL and size', 'error');
+                return;
+            }
+            
+            // Show loading indicator
+            document.getElementById('loading').classList.add('active');
             
             try {
                 const response = await fetch('/api/products', {
@@ -82,16 +145,29 @@
                     body: JSON.stringify({ url, size }),
                 });
                 
+                // Hide loading indicator
+                document.getElementById('loading').classList.remove('active');
+                
                 if (response.ok) {
+                    const product = await response.json();
                     loadProducts();
                     document.getElementById('productUrl').value = '';
                     document.getElementById('size').value = '';
+                    
+                    // Show appropriate message
+                    if (product.onSale) {
+                        showAlert(`Product added! ${product.message}`, 'success');
+                    } else {
+                        showAlert('Product added! Not currently on sale.', 'success');
+                    }
                 } else {
-                    alert('Error adding product');
+                    const error = await response.json();
+                    showAlert(`Error: ${error.message}`, 'error');
                 }
             } catch (error) {
+                document.getElementById('loading').classList.remove('active');
                 console.error('Error:', error);
-                alert('Error adding product');
+                showAlert('Error adding product. Check your URL and try again.', 'error');
             }
         }
 
@@ -104,19 +180,29 @@
                 const productList = document.getElementById('productList');
                 productList.innerHTML = '';
                 
+                if (products.length === 0) {
+                    productList.innerHTML = '<p>No products tracked yet. Add a product to start tracking.</p>';
+                    return;
+                }
+                
                 products.forEach(product => {
+                    const onSale = product.currentPrice < product.originalPrice;
                     const productElement = document.createElement('div');
                     productElement.className = 'product-item';
                     productElement.innerHTML = `
                         <div>
-                            <div>${product.name}</div>
-                            <div>Size: ${product.size}</div>
-                            <div class="price ${product.currentPrice < product.originalPrice ? 'sale' : ''}">
-                                €${product.currentPrice.toFixed(2)}
-                                ${product.currentPrice < product.originalPrice ? 
-                                    `(Was €${product.originalPrice.toFixed(2)})` : ''}
+                            <div>
+                                ${product.name} (${product.size})
+                                <span class="status-badge ${onSale ? 'on-sale' : 'no-sale'}">
+                                    ${onSale ? 'ON SALE' : 'NO SALE'}
+                                </span>
                             </div>
-                            <div>Last checked: ${new Date(product.lastChecked).toLocaleDateString()}</div>
+                            <div class="price ${onSale ? 'sale' : ''}">
+                                €${product.currentPrice.toFixed(2)}
+                                ${onSale ? 
+                                    `<span style="text-decoration: line-through; margin-left: 5px;">€${product.originalPrice.toFixed(2)}</span>` : ''}
+                            </div>
+                            <div>Last checked: ${new Date(product.lastChecked).toLocaleString()}</div>
                         </div>
                         <button onclick="removeProduct('${product._id}')">Remove</button>
                     `;
@@ -124,6 +210,7 @@
                 });
             } catch (error) {
                 console.error('Error:', error);
+                showAlert('Error loading products.', 'error');
             }
         }
 
@@ -136,12 +223,13 @@
                 
                 if (response.ok) {
                     loadProducts();
+                    showAlert('Product removed successfully.', 'success');
                 } else {
-                    alert('Error removing product');
+                    showAlert('Error removing product.', 'error');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Error removing product');
+                showAlert('Error removing product.', 'error');
             }
         }
 
