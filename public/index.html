@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uniqlo Price Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .product-list {
+            margin-top: 20px;
+        }
+        .product-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .price {
+            font-weight: bold;
+        }
+        .sale {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Uniqlo Price Tracker</h1>
+    
+    <div class="form-group">
+        <label for="productUrl">Product URL:</label>
+        <input type="text" id="productUrl" placeholder="https://www.uniqlo.com/nl/nl/...">
+    </div>
+    
+    <div class="form-group">
+        <label for="size">Size:</label>
+        <input type="text" id="size" placeholder="e.g., M, L, XL">
+    </div>
+    
+    <button onclick="addProduct()">Add Product</button>
+    
+    <div class="product-list" id="productList">
+        <!-- Products will be listed here -->
+    </div>
+
+    <script>
+        // Function to add a new product
+        async function addProduct() {
+            const url = document.getElementById('productUrl').value;
+            const size = document.getElementById('size').value;
+            
+            try {
+                const response = await fetch('/api/products', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ url, size }),
+                });
+                
+                if (response.ok) {
+                    loadProducts();
+                    document.getElementById('productUrl').value = '';
+                    document.getElementById('size').value = '';
+                } else {
+                    alert('Error adding product');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error adding product');
+            }
+        }
+
+        // Function to load all products
+        async function loadProducts() {
+            try {
+                const response = await fetch('/api/products');
+                const products = await response.json();
+                
+                const productList = document.getElementById('productList');
+                productList.innerHTML = '';
+                
+                products.forEach(product => {
+                    const productElement = document.createElement('div');
+                    productElement.className = 'product-item';
+                    productElement.innerHTML = `
+                        <div>
+                            <div>${product.name}</div>
+                            <div>Size: ${product.size}</div>
+                            <div class="price ${product.currentPrice < product.originalPrice ? 'sale' : ''}">
+                                €${product.currentPrice.toFixed(2)}
+                                ${product.currentPrice < product.originalPrice ? 
+                                    `(Was €${product.originalPrice.toFixed(2)})` : ''}
+                            </div>
+                            <div>Last checked: ${new Date(product.lastChecked).toLocaleDateString()}</div>
+                        </div>
+                        <button onclick="removeProduct('${product._id}')">Remove</button>
+                    `;
+                    productList.appendChild(productElement);
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Function to remove a product
+        async function removeProduct(id) {
+            try {
+                const response = await fetch(`/api/products/${id}`, {
+                    method: 'DELETE',
+                });
+                
+                if (response.ok) {
+                    loadProducts();
+                } else {
+                    alert('Error removing product');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error removing product');
+            }
+        }
+
+        // Load products when page loads
+        document.addEventListener('DOMContentLoaded', loadProducts);
+    </script>
+</body>
+</html> 
