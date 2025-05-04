@@ -6,15 +6,15 @@ This document outlines the planned enhancements for the Uniqlo Price Tracker app
 
 ### User Stories
 
-#### 1.1 Enhanced Selector System
-**As a** user tracking product prices,  
+#### ~~1.1 Enhanced Selector System~~ (✅ Completed)
+~~**As a** user tracking product prices,  
 **I want** the app to reliably extract price information even when the website changes,  
-**So that** I don't miss price drops due to technical issues.
+**So that** I don't miss price drops due to technical issues.~~
 
-**Acceptance Criteria:**
-- Implement multiple selector strategies for each data point
-- Create a fallback system that tries different selectors
-- Log which selector succeeded for future optimization
+~~**Acceptance Criteria:**~~
+- ~~Implement multiple selector strategies for each data point~~
+- ~~Create a fallback system that tries different selectors~~
+- ~~Log which selector succeeded for future optimization~~
 
 #### 1.2 Error Resilience
 **As a** user with many tracked products,  

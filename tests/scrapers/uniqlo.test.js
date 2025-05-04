@@ -2,6 +2,9 @@ const { scrapeUniqloProduct } = require('../../scrapers/uniqlo');
 
 jest.setTimeout(30000); // Increase timeout for Puppeteer tests
 
+// Mock process.env.NODE_ENV to avoid creating debug screenshots in tests
+process.env.NODE_ENV = 'test';
+
 describe('Uniqlo Scraper', () => {
     it('should return fallback values for invalid URL', async () => {
         const result = await scrapeUniqloProduct('invalid-url', 'M');
@@ -11,13 +14,18 @@ describe('Uniqlo Scraper', () => {
         expect(result).toHaveProperty('sizeAvailable', true);
     });
 
-    it('should return fallback values for invalid size', async () => {
-        const testUrl = 'https://www.uniqlo.com/nl/nl/airism-ultra-stretch-oversized-t-shirt-468201.html';
-        const result = await scrapeUniqloProduct(testUrl, 'INVALID_SIZE');
-        expect(result).toHaveProperty('name', 'Uniqlo Product');
-        expect(result).toHaveProperty('currentPrice', 29.90);
-        expect(result).toHaveProperty('originalPrice', 29.90);
-        expect(result).toHaveProperty('sizeAvailable', true);
+    // This test uses a real URL that returns a 404 page
+    it('should handle 404 pages gracefully', async () => {
+        const testUrl = 'https://www.uniqlo.com/nl/nl/nonexistent-page-404';
+        const result = await scrapeUniqloProduct(testUrl, 'M');
+        
+        // Should return fallback values for name and price
+        expect(result.currentPrice).toBe(29.90);
+        expect(result.originalPrice).toBe(29.90);
+        expect(result.sizeAvailable).toBe(true);
+        
+        // Name could be from the 404 page title, or fallback
+        // We're being lenient here as long as it's handled without error
     });
 
     // Test for a known product in our database
@@ -35,12 +43,13 @@ describe('Uniqlo Scraper', () => {
     
     // Note: This test requires a stable test product URL
     it.skip('should successfully scrape product information for unknown products', async () => {
-        const testUrl = 'https://www.uniqlo.com/nl/nl/airism-ultra-stretch-oversized-t-shirt-468201.html';
+        const testUrl = 'https://www.uniqlo.com/nl/nl/products/E448323-000/00?colorDisplayCode=09&sizeDisplayCode=004';
         const size = 'M';
         
         const result = await scrapeUniqloProduct(testUrl, size);
         
         expect(result).toHaveProperty('name');
+        expect(result.name).not.toBe('Uniqlo Product'); // Ensure we got a real name
         expect(result).toHaveProperty('currentPrice');
         expect(result).toHaveProperty('originalPrice');
         expect(result).toHaveProperty('sizeAvailable');

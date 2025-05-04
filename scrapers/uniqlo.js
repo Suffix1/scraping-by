@@ -1,4 +1,58 @@
 const puppeteer = require('puppeteer');
+const fs = require('fs');
+const path = require('path');
+
+// Selector strategies for different data points
+const SELECTOR_STRATEGIES = {
+    // Product name selectors, ordered by priority
+    productName: [
+        { strategy: 'titleTag', selector: 'title', method: 'text', transform: (text) => text.split('|')[0].trim() },
+        { strategy: 'h1Tag', selector: 'h1.product-name', method: 'text' },
+        { strategy: 'productTitle', selector: '.product-title', method: 'text' },
+        { strategy: 'pdpTitle', selector: '.pdp-title', method: 'text' },
+        { strategy: 'metaTitle', selector: 'meta[property="og:title"]', method: 'attribute', attribute: 'content' }
+    ],
+    
+    // Current price selectors, ordered by priority
+    currentPrice: [
+        { strategy: 'priceValue', selector: '[data-test="price-value"]', method: 'text' },
+        { strategy: 'priceValueClass', selector: '.price-value', method: 'text' },
+        { strategy: 'productPrice', selector: '.product-price', method: 'text' },
+        { strategy: 'currentPrice', selector: '.price-sales, .current-price', method: 'text' },
+        { strategy: 'schemaPriceItemprop', selector: 'span[itemprop="price"]', method: 'text' },
+        { strategy: 'priceElement', selector: '.price-box .price', method: 'text' },
+        { strategy: 'productPriceValue', selector: '#product-price-value', method: 'text' },
+        { strategy: 'frPriceChildren', selector: '.fr-ec-price__children', method: 'text' }
+    ],
+    
+    // Original price selectors, ordered by priority
+    originalPrice: [
+        { strategy: 'originalPriceValue', selector: '[data-test="price-original"]', method: 'text' },
+        { strategy: 'originalPriceClass', selector: '.price-value.original, .price-standard, .old-price', method: 'text' },
+        { strategy: 'originalPriceStrike', selector: '.price__strike-through, .strike-through', method: 'text' },
+        { strategy: 'productPriceOld', selector: '.product-price__old', method: 'text' },
+        { strategy: 'frPriceStrikeThrough', selector: '.fr-ec-price__strike-through', method: 'text' }
+    ]
+};
+
+// Create logging directory if it doesn't exist
+const logDir = path.join(__dirname, '../logs');
+if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir, { recursive: true });
+}
+
+// Function to log successful selectors
+function logSuccessfulSelector(productCode, dataType, strategy) {
+    try {
+        const logFile = path.join(logDir, 'selector-success.log');
+        const timestamp = new Date().toISOString();
+        const logEntry = `${timestamp} | ${productCode} | ${dataType} | ${strategy}\n`;
+        
+        fs.appendFileSync(logFile, logEntry);
+    } catch (error) {
+        console.error('Error logging successful selector:', error);
+    }
+}
 
 async function scrapeUniqloProduct(url, size) {
     console.log(`Starting to scrape: ${url} for size ${size}`);
@@ -6,6 +60,7 @@ async function scrapeUniqloProduct(url, size) {
     // Extract product code and color code from URL
     let productCode = '';
     let colorCode = '';
+    let selectorSuccesses = {};
     
     try {
         // Extract productCode (E480161-000) and colorCode (09)
@@ -92,136 +147,53 @@ async function scrapeUniqloProduct(url, size) {
             console.log('No cookie consent found or unable to click it:', error.message);
         }
         
-        // Take a screenshot for debugging
-        await page.screenshot({ path: 'debug-screenshot.png' });
-        console.log('Saved screenshot to debug-screenshot.png');
-        
-        // Dump HTML for debugging
-        const htmlContent = await page.content();
-        const fs = require('fs');
-        fs.writeFileSync('page-content.html', htmlContent);
-        console.log('Saved HTML to page-content.html');
-        
-        // Extract JSON-LD data which might contain price information
-        const jsonLdData = await page.evaluate(() => {
-            const jsonLdScripts = Array.from(document.querySelectorAll('script[type="application/ld+json"]'));
-            return jsonLdScripts.map(script => {
-                try {
-                    return JSON.parse(script.textContent);
-                } catch (e) {
-                    return null;
-                }
-            }).filter(data => data !== null);
-        });
-        
-        fs.writeFileSync('json-ld-data.json', JSON.stringify(jsonLdData, null, 2));
-        console.log('Saved JSON-LD data to json-ld-data.json');
-        
-        // Get the page title for product name
-        const pageTitle = await page.title();
-        console.log(`Page title: ${pageTitle}`);
-        
-        // Try to extract the product name from title
-        let name = defaultProduct.name;
-        try {
-            name = pageTitle.split('|')[0].trim();
-            console.log(`Using title for product name: ${name}`);
-        } catch (error) {
-            console.error('Error extracting product name from title:', error);
+        // Take a screenshot for debugging (only in development)
+        if (process.env.NODE_ENV !== 'production') {
+            await page.screenshot({ path: 'debug-screenshot.png' });
+            console.log('Saved screenshot to debug-screenshot.png');
         }
         
-        // Try to extract price information
-        let currentPrice = defaultProduct.currentPrice;
-        let originalPrice = defaultProduct.originalPrice;
+        // Use the enhanced selector system to extract data
+        // Extract product name
+        let name = defaultProduct.name;
+        let nameStrategy = await trySelectors(page, SELECTOR_STRATEGIES.productName);
+        if (nameStrategy.value) {
+            name = nameStrategy.value;
+            console.log(`Found product name using ${nameStrategy.strategy} strategy: ${name}`);
+            selectorSuccesses.productName = nameStrategy.strategy;
+        } else {
+            // Fallback to page title
+            name = await page.title();
+            name = name.split('|')[0].trim();
+            console.log(`Using fallback title for product name: ${name}`);
+        }
         
-        try {
-            // Try to use specific selectors for Uniqlo Netherlands
-            const priceInfo = await page.evaluate(() => {
-                // Function to extract price from text
-                const extractPrice = (text) => {
-                    if (!text) return null;
-                    const match = text.match(/[0-9]+(?:[,.][0-9]+)?/);
-                    if (match) {
-                        return parseFloat(match[0].replace(',', '.'));
-                    }
-                    return null;
-                };
-                
-                // Try multiple selectors that might contain price
-                const priceSelectors = [
-                    // Current selectors
-                    '[data-test="price-value"]', 
-                    '.price-value',
-                    '.product-price',
-                    '.price-value.price',
-                    'span[itemprop="price"]',
-                    
-                    // Fallback selectors
-                    '.price-box',
-                    '.price',
-                    '.product-price-container',
-                    '#product-price-value'
-                ];
-                
-                // Original price selectors
-                const originalPriceSelectors = [
-                    '.price-value.original',
-                    '.old-price',
-                    '[data-test="price-original"]',
-                    '.product-price__old'
-                ];
-                
-                // Try to find current price
-                let current = null;
-                for (const selector of priceSelectors) {
-                    const elements = document.querySelectorAll(selector);
-                    for (const element of elements) {
-                        if (element && element.textContent) {
-                            const price = extractPrice(element.textContent);
-                            if (price) {
-                                current = price;
-                                break;
-                            }
-                        }
-                    }
-                    if (current) break;
-                }
-                
-                // Try to find original price
-                let original = null;
-                for (const selector of originalPriceSelectors) {
-                    const elements = document.querySelectorAll(selector);
-                    for (const element of elements) {
-                        if (element && element.textContent) {
-                            const price = extractPrice(element.textContent);
-                            if (price) {
-                                original = price;
-                                break;
-                            }
-                        }
-                    }
-                    if (original) break;
-                }
-                
-                // If we have current but no original, they're the same
-                if (current && !original) {
-                    original = current;
-                }
-                
-                return { current, original };
+        // Extract price information
+        let currentPrice = defaultProduct.currentPrice;
+        let currentPriceStrategy = await trySelectors(page, SELECTOR_STRATEGIES.currentPrice, true);
+        if (currentPriceStrategy.value) {
+            currentPrice = currentPriceStrategy.value;
+            console.log(`Found current price using ${currentPriceStrategy.strategy} strategy: €${currentPrice}`);
+            selectorSuccesses.currentPrice = currentPriceStrategy.strategy;
+        }
+        
+        let originalPrice = defaultProduct.originalPrice;
+        let originalPriceStrategy = await trySelectors(page, SELECTOR_STRATEGIES.originalPrice, true);
+        if (originalPriceStrategy.value) {
+            originalPrice = originalPriceStrategy.value;
+            console.log(`Found original price using ${originalPriceStrategy.strategy} strategy: €${originalPrice}`);
+            selectorSuccesses.originalPrice = originalPriceStrategy.strategy;
+        } else {
+            // If original price not found, use current price
+            originalPrice = currentPrice;
+            console.log(`Using current price as original price: €${originalPrice}`);
+        }
+        
+        // Log successful selectors if we have a product code
+        if (productCode) {
+            Object.entries(selectorSuccesses).forEach(([dataType, strategy]) => {
+                logSuccessfulSelector(productCode, dataType, strategy);
             });
-            
-            if (priceInfo.current) {
-                currentPrice = priceInfo.current;
-                console.log(`Found current price: €${currentPrice}`);
-            }
-            
-            if (priceInfo.original) {
-                originalPrice = priceInfo.original;
-                console.log(`Found original price: €${originalPrice}`);
-            }
-        } catch (error) {
-            console.error('Error extracting price information:', error);
         }
         
         // If we successfully scraped the product, save it to our known products
@@ -238,7 +210,8 @@ async function scrapeUniqloProduct(url, size) {
             name,
             currentPrice,
             originalPrice,
-            sizeAvailable: true
+            sizeAvailable: true,
+            _selectorInfo: process.env.NODE_ENV === 'test' ? selectorSuccesses : undefined
         };
     } catch (error) {
         console.error('Scraping error:', error);
@@ -253,6 +226,81 @@ async function scrapeUniqloProduct(url, size) {
     }
 }
 
+// Function to try multiple selectors and return the first successful result
+async function trySelectors(page, strategies, isPrice = false) {
+    for (const strategy of strategies) {
+        try {
+            let value = null;
+            
+            // Different methods of extraction
+            if (strategy.method === 'text') {
+                const elements = await page.$$(strategy.selector);
+                if (elements.length > 0) {
+                    for (const element of elements) {
+                        const text = await page.evaluate(el => el.textContent, element);
+                        if (text && text.trim()) {
+                            value = isPrice ? extractPrice(text) : text.trim();
+                            if (value) break;
+                        }
+                    }
+                }
+            } else if (strategy.method === 'attribute' && strategy.attribute) {
+                const element = await page.$(strategy.selector);
+                if (element) {
+                    const attrValue = await page.evaluate(
+                        (el, attr) => el.getAttribute(attr), 
+                        element, 
+                        strategy.attribute
+                    );
+                    value = isPrice ? extractPrice(attrValue) : attrValue;
+                }
+            }
+            
+            // Apply transformation if provided
+            if (value && strategy.transform) {
+                value = strategy.transform(value);
+            }
+            
+            if (value) {
+                return { strategy: strategy.strategy, value };
+            }
+        } catch (error) {
+            console.log(`Error with ${strategy.strategy} strategy:`, error.message);
+            // Continue to next strategy
+        }
+    }
+    
+    return { strategy: null, value: null };
+}
+
+// Function to extract price from text
+function extractPrice(text) {
+    if (!text) return null;
+    
+    // Try to find a price pattern in the text
+    const pricePatterns = [
+        /€\s*(\d+[,.]\d+)/,  // €XX,XX or €XX.XX
+        /(\d+[,.]\d+)\s*€/,  // XX,XX€ or XX.XX€
+        /(\d+[,.]\d+)/       // Just the number XX,XX or XX.XX
+    ];
+    
+    for (const pattern of pricePatterns) {
+        const match = text.match(pattern);
+        if (match && match[1]) {
+            // Convert to number, replacing comma with dot for decimal
+            return parseFloat(match[1].replace(',', '.'));
+        }
+    }
+    
+    return null;
+}
+
 module.exports = {
-    scrapeUniqloProduct
+    scrapeUniqloProduct,
+    // Export for testing purposes
+    _testExports: {
+        trySelectors,
+        extractPrice,
+        SELECTOR_STRATEGIES
+    }
 }; 
