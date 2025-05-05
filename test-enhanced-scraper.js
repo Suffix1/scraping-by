@@ -1,46 +1,33 @@
 const { scrapeUniqloProduct } = require('./scrapers/uniqlo');
 
-async function testEnhancedScraper() {
-    console.log('===== TESTING ENHANCED SCRAPER =====');
-    
-    // Test with a known product to verify base functionality
-    const knownProductUrl = 'https://www.uniqlo.com/nl/nl/products/E480161-000/00?colorDisplayCode=09&sizeDisplayCode=003';
-    console.log(`\nTesting known product: ${knownProductUrl}`);
-    
-    try {
-        const knownResult = await scrapeUniqloProduct(knownProductUrl);
-        console.log('\nKnown Product Result:');
-        console.log(JSON.stringify(knownResult, null, 2));
-    } catch (error) {
-        console.error('Error with known product:', error);
-    }
-    
-    // Test with an unknown product to see if the selector system works
-    // This is a dynamic URL that should work at the time of testing
-    const dynamicProductUrl = 'https://www.uniqlo.com/nl/nl/products/E451484-000/00?colorDisplayCode=56&sizeDisplayCode=005';
-    console.log(`\nTesting unknown product: ${dynamicProductUrl}`);
+// URL from the terminal output that showed the incorrect price
+const testUrl = 'https://www.uniqlo.com/nl/nl/products/E453754-000/00?colorDisplayCode=69&sizeDisplayCode=004';
+
+async function testScraper() {
+    console.log(`Testing scraper with URL: ${testUrl}`);
     
     try {
-        const unknownResult = await scrapeUniqloProduct(dynamicProductUrl);
-        console.log('\nUnknown Product Result:');
-        console.log(JSON.stringify(unknownResult, null, 2));
+        const productData = await scrapeUniqloProduct(testUrl);
+        
+        console.log('Scraped Product Data:');
+        console.log('-------------------');
+        console.log(`Name: ${productData.name}`);
+        console.log(`Current Price: €${productData.currentPrice}`);
+        console.log(`Original Price: €${productData.originalPrice}`);
+        
+        if (productData.currentPrice === 29.90 && productData.originalPrice === 39.90) {
+            console.log('\nWARNING: Still showing the same price values as before');
+            console.log('Please check the actual price on the Uniqlo website');
+        } else {
+            console.log('\nPrice values have been updated from the original values');
+        }
     } catch (error) {
-        console.error('Error with unknown product:', error);
+        console.error('Error testing scraper:', error);
     }
-    
-    // Test with a 404 page to verify error handling
-    const nonexistentUrl = 'https://www.uniqlo.com/nl/nl/nonexistent-page-404';
-    console.log(`\nTesting nonexistent URL: ${nonexistentUrl}`);
-    
-    try {
-        const errorResult = await scrapeUniqloProduct(nonexistentUrl);
-        console.log('\nNonexistent URL Result:');
-        console.log(JSON.stringify(errorResult, null, 2));
-    } catch (error) {
-        console.error('Error with nonexistent URL:', error);
-    }
-    
-    console.log('\n===== ENHANCED SCRAPER TEST COMPLETE =====');
 }
 
-testEnhancedScraper(); 
+testScraper().then(() => {
+    console.log('Test completed');
+}).catch((error) => {
+    console.error('Test failed:', error);
+}); 

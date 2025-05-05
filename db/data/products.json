@@ -5,11 +5,11 @@
     "currentPrice": 12.9,
     "originalPrice": 19.9,
     "onSale": true,
-    "lastChecked": "2025-05-05T07:49:10.633Z",
+    "lastChecked": "2025-05-05T08:13:53.635Z",
     "emailSent": false,
     "_id": "1746431350634",
     "createdAt": "2025-05-05T07:49:10.634Z",
-    "updatedAt": "2025-05-05T07:49:10.634Z"
+    "updatedAt": "2025-05-05T08:13:53.636Z"
   },
   {
     "url": "https://www.uniqlo.com/nl/nl/products/E475296-000/00?colorDisplayCode=55",
@@ -17,22 +17,22 @@
     "currentPrice": 49.9,
     "originalPrice": 49.9,
     "onSale": false,
-    "lastChecked": "2025-05-05T07:49:30.941Z",
+    "lastChecked": "2025-05-05T08:13:53.637Z",
     "emailSent": false,
     "_id": "1746431370942",
     "createdAt": "2025-05-05T07:49:30.942Z",
-    "updatedAt": "2025-05-05T07:49:30.942Z"
+    "updatedAt": "2025-05-05T08:13:53.638Z"
   },
   {
     "url": "https://www.uniqlo.com/nl/nl/products/E453754-000/00?colorDisplayCode=69&sizeDisplayCode=004",
     "name": "Heren Ribgebreide Trui met Ronde Hals (Wasbaar)",
-    "currentPrice": 29.9,
+    "currentPrice": 39.9,
     "originalPrice": 39.9,
-    "onSale": true,
-    "lastChecked": "2025-05-05T07:53:49.317Z",
+    "onSale": false,
+    "lastChecked": "2025-05-05T08:13:53.639Z",
     "emailSent": false,
     "_id": "1746431629317",
     "createdAt": "2025-05-05T07:53:49.317Z",
-    "updatedAt": "2025-05-05T07:53:49.317Z"
+    "updatedAt": "2025-05-05T08:13:53.640Z"
   }
 ]

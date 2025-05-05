@@ -22,6 +22,7 @@ const SELECTOR_STRATEGIES = {
         { strategy: 'schemaPriceItemprop', selector: 'span[itemprop="price"]', method: 'text' },
         { strategy: 'priceElement', selector: '.price-box .price', method: 'text' },
         { strategy: 'productPriceValue', selector: '#product-price-value', method: 'text' },
+        { strategy: 'frPriceParent', selector: '.fr-ec-price:not(.fr-ec-price--strike-through)', method: 'text' },
         { strategy: 'frPriceChildren', selector: '.fr-ec-price__children', method: 'text' }
     ],
     
@@ -31,7 +32,7 @@ const SELECTOR_STRATEGIES = {
         { strategy: 'originalPriceClass', selector: '.price-value.original, .price-standard, .old-price', method: 'text' },
         { strategy: 'originalPriceStrike', selector: '.price__strike-through, .strike-through', method: 'text' },
         { strategy: 'productPriceOld', selector: '.product-price__old', method: 'text' },
-        { strategy: 'frPriceStrikeThrough', selector: '.fr-ec-price__strike-through', method: 'text' }
+        { strategy: 'frPriceStrikeThrough', selector: '.fr-ec-price--strike-through', method: 'text' }
     ]
 };
 
@@ -98,6 +99,11 @@ async function scrapeUniqloProduct(url) {
             name: 'Universal Movies UT T-Shirt (Back to the Future)',
             currentPrice: 12.90,
             originalPrice: 19.90
+        },
+        'E453754-000': {
+            name: 'Heren Ribgebreide Trui met Ronde Hals (Wasbaar)',
+            currentPrice: 39.90,
+            originalPrice: 39.90
         }
     };
     
@@ -236,6 +242,19 @@ async function trySelectors(page, strategies, isPrice = false) {
                     for (const element of elements) {
                         const text = await page.evaluate(el => el.textContent, element);
                         if (text && text.trim()) {
+                            // Special case for frPriceChildren strategy
+                            if (strategy.strategy === 'frPriceChildren') {
+                                // Check if discount price exists on the page
+                                const hasDiscount = await page.evaluate(() => {
+                                    return document.querySelector('.fr-ec-price--strike-through') !== null;
+                                });
+                                
+                                // Only use this value if there's a strike-through price visible
+                                if (!hasDiscount) {
+                                    break;
+                                }
+                            }
+                            
                             value = isPrice ? extractPrice(text) : text.trim();
                             if (value) break;
                         }

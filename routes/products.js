@@ -52,6 +52,52 @@ router.post('/', async (req, res) => {
     }
 });
 
+// Refresh all products
+router.post('/refresh-all', async (req, res) => {
+    console.log('Refresh all products endpoint called');
+    try {
+        const products = await Product.find();
+        console.log(`Found ${products.length} products to refresh`);
+        const results = { 
+            updated: 0, 
+            total: products.length, 
+            priceDrops: 0,
+            errors: 0 
+        };
+        
+        for (const product of products) {
+            try {
+                console.log(`Refreshing price for ${product.name}...`);
+                const productInfo = await scrapeUniqloProduct(product.url);
+                
+                if (productInfo.currentPrice < product.currentPrice) {
+                    results.priceDrops++;
+                }
+                
+                await Product.findByIdAndUpdate(product._id, {
+                    currentPrice: productInfo.currentPrice,
+                    lastChecked: new Date().toISOString()
+                });
+                
+                results.updated++;
+                console.log(`Successfully updated ${product.name}`);
+            } catch (error) {
+                console.error(`Error refreshing price for ${product.name}:`, error);
+                results.errors++;
+            }
+        }
+        
+        console.log(`Completed refresh: ${results.updated} updated, ${results.priceDrops} price drops, ${results.errors} errors`);
+        res.json({
+            message: `Successfully refreshed ${results.updated} of ${results.total} products. Found ${results.priceDrops} price drops.`,
+            results
+        });
+    } catch (error) {
+        console.error('Error refreshing products:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Delete product
 router.delete('/:id', async (req, res) => {
     try {
