@@ -3,33 +3,16 @@ description:
 globs: 
 alwaysApply: false
 ---
-# Coding Preferences
+# Coding pattern preferences 
 
-## Style Guide
-- Use camelCase for variables and functions
-- Use PascalCase for classes and components
-- Use UPPER_SNAKE_CASE for constants
-- Maximum line length: 100 characters
-- Use 4 spaces for indentation
-
-## Code Quality
-- Write self-documenting code
-- Keep functions small and focused
-- Avoid deep nesting
-- Use meaningful variable names
-- Avoid code duplication (DRY principle)
-
-## Comments
-- Use JSDoc for function documentation
-- Comment complex logic
-- Keep comments up to date
-- Avoid obvious comments
-- Include example usage for complex functions
-
-## Error Handling
-- Use try-catch blocks appropriately
-- Log errors with context
-- Handle edge cases
-- Validate input data
-- Provide helpful error messages
-
+- Always prefer simple solutions 
+- Avoid duplication of code whenever possible, which means checking for other areas of the codebase that might already have similar code and functionality 
+- Write code that takes into account the different environments: dev, test, and prod 
+- You are careful to only make changes that are requested or you are confident are well understood and related to the change being requested 
+- When fixing an issue or bug, do not introduce a new pattern or technology without first exhausting all options for the existing implementation. And if you finally do this, make sure to remove the old ipmlementation afterwards so we don't have duplicate logic. 
+- Keep the codebase very clean and organized 
+- Avoid writing scripts in files if possible, especially if the script is likely only to be run once 
+- Avoid having files over 400-500 lines of code. Refactor at that point. 
+- Mocking data is only needed for tests, never mock data for dev or prod 
+- Never add stubbing or fake data patterns to code that affects the dev or prod environments 
+- Never overwrite my env file without first asking and confirming 

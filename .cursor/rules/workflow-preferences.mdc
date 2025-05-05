@@ -5,29 +5,12 @@ alwaysApply: false
 ---
 # Workflow Preferences
 
-## General
-- Use consistent indentation (4 spaces)
-- Follow project-specific coding standards
-- Maintain clear and descriptive commit messages
-- Regular code reviews and pair programming when appropriate
+- focus on the areas of the code relevant to the task
+- do no touch code that is unrelated to the task
+- write thorough tests for all major functionality
+- avoid making major changes to the patterns and architecture of how a feature works, after it has shown to work well, unless explicity instructed
+- always think about what other methods and areas code my be affected by code changes
 
-## Development Flow
-- Create feature branches for new work
-- Write tests before implementing features (TDD approach)
-- Regular commits with meaningful messages
-- Pull requests for code review before merging
-
-## Documentation
-- Keep documentation up to date
-- Include README files for major components
-- Document complex algorithms and business logic
-- Maintain clear API documentation
-
-## Code Organization
-- Modular and reusable components
-- Clear separation of concerns
-- Consistent file and directory structure
-- Meaningful naming conventions
 
 
 

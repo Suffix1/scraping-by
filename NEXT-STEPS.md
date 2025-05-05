@@ -136,4 +136,16 @@ This document outlines the planned enhancements for the Uniqlo Price Tracker app
 **Acceptance Criteria:**
 - Document all API endpoints with examples
 - Create OpenAPI/Swagger specification
-- Include authentication and rate-limiting guidelines 
+- Include authentication and rate-limiting guidelines
+
+#### 4.4 Automatic Price Check on Startup
+**As a** user of the price tracker application,  
+**I want** the system to automatically check prices for stale items when the application starts,  
+**So that** I have up-to-date price information without manual intervention.
+
+**Acceptance Criteria:**
+- When the application starts, identify products not checked in the last 24 hours
+- Only check prices for these stale products, not all products
+- Update the database with new price information
+- Send notifications for any price drops detected
+- Log the results of the automatic price check 
