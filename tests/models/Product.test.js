@@ -24,7 +24,6 @@ describe('Product Model', () => {
     it('should create a new product successfully', async () => {
         const productData = {
             url: 'https://www.uniqlo.com/nl/nl/test-product',
-            size: 'M',
             name: 'Test Product',
             currentPrice: 29.99,
             originalPrice: 39.99
@@ -32,11 +31,10 @@ describe('Product Model', () => {
 
         const product = await Product.create(productData);
 
-        expect(db.findOne).toHaveBeenCalledWith('products', { url: productData.url, size: productData.size });
+        expect(db.findOne).toHaveBeenCalledWith('products', { url: productData.url });
         expect(db.create).toHaveBeenCalled();
         expect(product._id).toBeDefined();
         expect(product.url).toBe(productData.url);
-        expect(product.size).toBe(productData.size);
         expect(product.name).toBe(productData.name);
         expect(product.currentPrice).toBe(productData.currentPrice);
         expect(product.originalPrice).toBe(productData.originalPrice);
@@ -57,13 +55,11 @@ describe('Product Model', () => {
         // Mock finding an existing product
         db.findOne.mockResolvedValueOnce({
             _id: 'existing-id',
-            url: 'https://www.uniqlo.com/nl/nl/test-product',
-            size: 'M'
+            url: 'https://www.uniqlo.com/nl/nl/test-product'
         });
 
         const productData = {
             url: 'https://www.uniqlo.com/nl/nl/test-product',
-            size: 'M',
             name: 'Test Product',
             currentPrice: 29.99,
             originalPrice: 39.99

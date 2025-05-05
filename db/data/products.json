@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "url": "https://www.uniqlo.com/nl/nl/products/E480161-000/00?colorDisplayCode=09&sizeDisplayCode=003",
+    "name": "Universal Movies UT T-Shirt (Back to the Future)",
+    "currentPrice": 12.9,
+    "originalPrice": 19.9,
+    "onSale": true,
+    "lastChecked": "2025-05-05T07:49:10.633Z",
+    "emailSent": false,
+    "_id": "1746431350634",
+    "createdAt": "2025-05-05T07:49:10.634Z",
+    "updatedAt": "2025-05-05T07:49:10.634Z"
+  },
+  {
+    "url": "https://www.uniqlo.com/nl/nl/products/E475296-000/00?colorDisplayCode=55",
+    "name": "Heren 3D Knit Naadloze Trui",
+    "currentPrice": 49.9,
+    "originalPrice": 49.9,
+    "onSale": false,
+    "lastChecked": "2025-05-05T07:49:30.941Z",
+    "emailSent": false,
+    "_id": "1746431370942",
+    "createdAt": "2025-05-05T07:49:30.942Z",
+    "updatedAt": "2025-05-05T07:49:30.942Z"
+  },
+  {
+    "url": "https://www.uniqlo.com/nl/nl/products/E453754-000/00?colorDisplayCode=69&sizeDisplayCode=004",
+    "name": "Heren Ribgebreide Trui met Ronde Hals (Wasbaar)",
+    "currentPrice": 29.9,
+    "originalPrice": 39.9,
+    "onSale": true,
+    "lastChecked": "2025-05-05T07:53:49.317Z",
+    "emailSent": false,
+    "_id": "1746431629317",
+    "createdAt": "2025-05-05T07:53:49.317Z",
+    "updatedAt": "2025-05-05T07:53:49.317Z"
+  }
+]

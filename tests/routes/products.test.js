@@ -30,7 +30,6 @@ describe('Product Routes', () => {
                 {
                     _id: 'test-id-1',
                     url: 'https://www.uniqlo.com/nl/nl/test-product-1',
-                    size: 'M',
                     name: 'Test Product 1',
                     currentPrice: 29.99,
                     originalPrice: 39.99
@@ -38,7 +37,6 @@ describe('Product Routes', () => {
                 {
                     _id: 'test-id-2',
                     url: 'https://www.uniqlo.com/nl/nl/test-product-2',
-                    size: 'L',
                     name: 'Test Product 2',
                     currentPrice: 19.99,
                     originalPrice: 24.99
@@ -58,16 +56,14 @@ describe('Product Routes', () => {
     describe('POST /api/products', () => {
         it('should create a new product', async () => {
             const productData = {
-                url: 'https://www.uniqlo.com/nl/nl/test-product',
-                size: 'M'
+                url: 'https://www.uniqlo.com/nl/nl/test-product'
             };
             
             // Mock scraper
             scrapeUniqloProduct.mockResolvedValueOnce({
                 name: 'Test Product',
                 currentPrice: 29.99,
-                originalPrice: 39.99,
-                sizeAvailable: true
+                originalPrice: 39.99
             });
             
             // Mock product creation
@@ -91,10 +87,9 @@ describe('Product Routes', () => {
 
             expect(response.status).toBe(201);
             expect(response.body).toEqual(createdProduct);
-            expect(scrapeUniqloProduct).toHaveBeenCalledWith(productData.url, productData.size);
+            expect(scrapeUniqloProduct).toHaveBeenCalledWith(productData.url);
             expect(Product.create).toHaveBeenCalledWith(expect.objectContaining({
                 url: productData.url,
-                size: productData.size,
                 name: 'Test Product',
                 currentPrice: 29.99,
                 originalPrice: 39.99

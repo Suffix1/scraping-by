@@ -146,27 +146,23 @@ describe('Enhanced Uniqlo Scraper', () => {
         it('should use knownProducts database if product exists', async () => {
             // Testing the product in the knownProducts database
             const result = await scrapeUniqloProduct(
-                'https://www.uniqlo.com/nl/nl/products/E475296-000/00?colorDisplayCode=05&sizeDisplayCode=004',
-                'M'
+                'https://www.uniqlo.com/nl/nl/products/E475296-000/00?colorDisplayCode=05&sizeDisplayCode=004'
             );
             
             expect(result.name).toBe('Heren 3D Knit Naadloze Trui');
             expect(result.currentPrice).toBe(49.90);
             expect(result.originalPrice).toBe(49.90);
-            expect(result.sizeAvailable).toBe(true);
         });
         
         it('should handle errors gracefully by returning default values', async () => {
             // Testing with a completely invalid URL
             const result = await scrapeUniqloProduct(
-                'invalid-url',
-                'M'
+                'invalid-url'
             );
             
             expect(result.name).toBe('Uniqlo Product');
             expect(result.currentPrice).toBe(29.90);
             expect(result.originalPrice).toBe(29.90);
-            expect(result.sizeAvailable).toBe(true);
         });
     });
 }); 
