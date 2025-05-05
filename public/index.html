@@ -97,11 +97,6 @@
         <input type="text" id="productUrl" placeholder="https://www.uniqlo.com/nl/nl/...">
     </div>
     
-    <div class="form-group">
-        <label for="size">Size:</label>
-        <input type="text" id="size" placeholder="e.g., M, L, XL">
-    </div>
-    
     <button onclick="addProduct()">Add Product</button>
     <div id="loading" class="loading">Checking price... This may take a few seconds.</div>
     
@@ -126,10 +121,9 @@
         // Function to add a new product
         async function addProduct() {
             const url = document.getElementById('productUrl').value;
-            const size = document.getElementById('size').value;
             
-            if (!url || !size) {
-                showAlert('Please enter both URL and size', 'error');
+            if (!url) {
+                showAlert('Please enter a product URL', 'error');
                 return;
             }
             
@@ -142,7 +136,7 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ url, size }),
+                    body: JSON.stringify({ url }),
                 });
                 
                 // Hide loading indicator
@@ -152,7 +146,6 @@
                     const product = await response.json();
                     loadProducts();
                     document.getElementById('productUrl').value = '';
-                    document.getElementById('size').value = '';
                     
                     // Show appropriate message
                     if (product.onSale) {
@@ -192,7 +185,7 @@
                     productElement.innerHTML = `
                         <div>
                             <div>
-                                ${product.name} (${product.size})
+                                ${product.name}
                                 <span class="status-badge ${onSale ? 'on-sale' : 'no-sale'}">
                                     ${onSale ? 'ON SALE' : 'NO SALE'}
                                 </span>

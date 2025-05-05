@@ -16,16 +16,16 @@ router.get('/', async (req, res) => {
 // Add new product
 router.post('/', async (req, res) => {
     try {
-        const { url, size } = req.body;
+        const { url } = req.body;
         
         // Validate input
-        if (!url || !size) {
-            return res.status(400).json({ message: 'URL and size are required' });
+        if (!url) {
+            return res.status(400).json({ message: 'URL is required' });
         }
         
         // Scrape product information
-        console.log(`Checking price for ${url} in size ${size}...`);
-        const productInfo = await scrapeUniqloProduct(url, size);
+        console.log(`Checking price for ${url}...`);
+        const productInfo = await scrapeUniqloProduct(url);
         console.log(`Found product: ${productInfo.name}, Current price: €${productInfo.currentPrice}, Original price: €${productInfo.originalPrice}`);
         
         // Check if it's on sale
@@ -34,7 +34,6 @@ router.post('/', async (req, res) => {
         // Create new product
         const newProduct = await Product.create({
             url,
-            size,
             name: productInfo.name,
             currentPrice: productInfo.currentPrice,
             originalPrice: productInfo.originalPrice,

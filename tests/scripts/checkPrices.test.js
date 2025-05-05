@@ -22,7 +22,6 @@ describe('Price Checking Script', () => {
         const mockProduct = {
             _id: 'test-id-123',
             url: 'https://www.uniqlo.com/nl/nl/test-product',
-            size: 'M',
             name: 'Test Product',
             currentPrice: 29.99,
             originalPrice: 39.99,
@@ -40,15 +39,14 @@ describe('Price Checking Script', () => {
         scrapeUniqloProduct.mockResolvedValueOnce({
             name: 'Test Product',
             currentPrice: 29.99,
-            originalPrice: 39.99,
-            sizeAvailable: true
+            originalPrice: 39.99
         });
 
         const result = await checkPrices();
         
         expect(result.success).toBe(true);
         expect(result.priceDrops).toBe(false);
-        expect(scrapeUniqloProduct).toHaveBeenCalledWith(mockProduct.url, mockProduct.size);
+        expect(scrapeUniqloProduct).toHaveBeenCalledWith(mockProduct.url);
         expect(Product.findByIdAndUpdate).toHaveBeenCalledWith(
             mockProduct._id, 
             expect.objectContaining({
@@ -63,7 +61,6 @@ describe('Price Checking Script', () => {
         const mockProduct = {
             _id: 'test-id-123',
             url: 'https://www.uniqlo.com/nl/nl/test-product',
-            size: 'M',
             name: 'Test Product',
             currentPrice: 29.99,
             originalPrice: 39.99,
@@ -82,8 +79,7 @@ describe('Price Checking Script', () => {
         scrapeUniqloProduct.mockResolvedValueOnce({
             name: 'Test Product',
             currentPrice: 19.99,
-            originalPrice: 39.99,
-            sizeAvailable: true
+            originalPrice: 39.99
         });
         
         const result = await checkPrices();
@@ -104,7 +100,6 @@ describe('Price Checking Script', () => {
         const mockProduct = {
             _id: 'test-id-123',
             url: 'https://www.uniqlo.com/nl/nl/test-product',
-            size: 'M',
             name: 'Test Product',
             currentPrice: 29.99,
             originalPrice: 39.99,

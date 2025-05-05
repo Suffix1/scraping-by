@@ -12,15 +12,14 @@ class Product {
     static async create(data) {
         // Validate required fields
         if (!data.url) throw new Error('URL is required');
-        if (!data.size) throw new Error('Size is required');
         if (!data.name) throw new Error('Name is required');
         if (!data.currentPrice) throw new Error('Current price is required');
         if (!data.originalPrice) throw new Error('Original price is required');
 
         // Check for duplicate URL
-        const existingProduct = await db.findOne(COLLECTION, { url: data.url, size: data.size });
+        const existingProduct = await db.findOne(COLLECTION, { url: data.url });
         if (existingProduct) {
-            throw new Error('Product with this URL and size already exists');
+            throw new Error('Product with this URL already exists');
         }
 
         // Add default values if not provided

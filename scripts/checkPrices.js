@@ -20,13 +20,12 @@ async function checkPrices() {
 
         for (const product of products) {
             try {
-                const productInfo = await scrapeUniqloProduct(product.url, product.size);
+                const productInfo = await scrapeUniqloProduct(product.url);
                 
                 if (productInfo.currentPrice < product.currentPrice) {
                     hasPriceDrops = true;
                     emailContent += `
                         Product: ${product.name}
-                        Size: ${product.size}
                         Old Price: €${product.currentPrice.toFixed(2)}
                         New Price: €${productInfo.currentPrice.toFixed(2)}
                         Savings: €${(product.currentPrice - productInfo.currentPrice).toFixed(2)}

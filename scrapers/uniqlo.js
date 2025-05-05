@@ -54,8 +54,8 @@ function logSuccessfulSelector(productCode, dataType, strategy) {
     }
 }
 
-async function scrapeUniqloProduct(url, size) {
-    console.log(`Starting to scrape: ${url} for size ${size}`);
+async function scrapeUniqloProduct(url) {
+    console.log(`Starting to scrape: ${url}`);
     
     // Extract product code and color code from URL
     let productCode = '';
@@ -84,8 +84,7 @@ async function scrapeUniqloProduct(url, size) {
     let defaultProduct = {
         name: 'Uniqlo Product',
         currentPrice: 29.90,
-        originalPrice: 29.90,
-        sizeAvailable: true
+        originalPrice: 29.90
     };
     
     // Create a mapping of known products and their prices
@@ -106,8 +105,7 @@ async function scrapeUniqloProduct(url, size) {
     if (productCode && knownProducts[productCode]) {
         console.log(`Found product ${productCode} in known products database`);
         return {
-            ...knownProducts[productCode],
-            sizeAvailable: true
+            ...knownProducts[productCode]
         };
     }
     
@@ -210,7 +208,6 @@ async function scrapeUniqloProduct(url, size) {
             name,
             currentPrice,
             originalPrice,
-            sizeAvailable: true,
             _selectorInfo: process.env.NODE_ENV === 'test' ? selectorSuccesses : undefined
         };
     } catch (error) {

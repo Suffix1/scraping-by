@@ -8,7 +8,7 @@ async function testEnhancedScraper() {
     console.log(`\nTesting known product: ${knownProductUrl}`);
     
     try {
-        const knownResult = await scrapeUniqloProduct(knownProductUrl, 'M');
+        const knownResult = await scrapeUniqloProduct(knownProductUrl);
         console.log('\nKnown Product Result:');
         console.log(JSON.stringify(knownResult, null, 2));
     } catch (error) {
@@ -21,7 +21,7 @@ async function testEnhancedScraper() {
     console.log(`\nTesting unknown product: ${dynamicProductUrl}`);
     
     try {
-        const unknownResult = await scrapeUniqloProduct(dynamicProductUrl, 'L');
+        const unknownResult = await scrapeUniqloProduct(dynamicProductUrl);
         console.log('\nUnknown Product Result:');
         console.log(JSON.stringify(unknownResult, null, 2));
     } catch (error) {
@@ -33,7 +33,7 @@ async function testEnhancedScraper() {
     console.log(`\nTesting nonexistent URL: ${nonexistentUrl}`);
     
     try {
-        const errorResult = await scrapeUniqloProduct(nonexistentUrl, 'M');
+        const errorResult = await scrapeUniqloProduct(nonexistentUrl);
         console.log('\nNonexistent URL Result:');
         console.log(JSON.stringify(errorResult, null, 2));
     } catch (error) {
