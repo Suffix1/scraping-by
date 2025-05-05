@@ -1,37 +1,22 @@
 const { scrapeUniqloProduct } = require('./scrapers/uniqlo');
 
-async function testScraper() {
-    console.log('======= TESTING UNIQLO SCRAPER =======');
+const url = 'https://www.uniqlo.com/nl/nl/products/E422992-000/02?colorDisplayCode=62&sizeDisplayCode=007';
+
+async function main() {
+    console.log(`Testing scraper for URL: ${url}`);
     
-    const products = [
-        {
-            url: 'https://www.uniqlo.com/nl/nl/products/E475296-000/00?colorDisplayCode=55&sizeDisplayCode=004',
-            expected: 'Heren 3D Knit Naadloze Trui'
-        },
-        {
-            url: 'https://www.uniqlo.com/nl/nl/products/E480161-000/00?colorDisplayCode=09&sizeDisplayCode=003',
-            expected: 'Heren Warme Voering V-Hals Trui'
-        }
-    ];
-    
-    for (const product of products) {
-        console.log(`\nTesting: ${product.url}`);
-        console.log(`Expected product: ${product.expected}`);
-        
-        try {
-            const result = await scrapeUniqloProduct(product.url);
-            console.log('RESULT:');
-            console.log(`- Name: ${result.name}`);
-            console.log(`- Current Price: €${result.currentPrice}`);
-            console.log(`- Original Price: €${result.originalPrice}`);
-            console.log(`- On Sale: ${result.currentPrice < result.originalPrice ? 'YES' : 'NO'}`);
-        } catch (error) {
-            console.error(`ERROR with ${product.url}:`, error);
-        }
+    try {
+        const productInfo = await scrapeUniqloProduct(url);
+        console.log('--------------------------------------------------');
+        console.log('SCRAPED PRODUCT INFORMATION:');
+        console.log(`Product Name: ${productInfo.name}`);
+        console.log(`Current Price: €${productInfo.currentPrice.toFixed(2)}`);
+        console.log(`Original Price: €${productInfo.originalPrice.toFixed(2)}`);
+        console.log(`On Sale: ${productInfo.currentPrice < productInfo.originalPrice ? 'Yes' : 'No'}`);
+        console.log('--------------------------------------------------');
+    } catch (error) {
+        console.error('Error during scraping test:', error);
     }
-    
-    console.log('\n======= TESTING COMPLETE =======');
 }
 
-// Run the tests
-testScraper().catch(console.error); 
+main(); 

@@ -5,11 +5,11 @@
     "currentPrice": 12.9,
     "originalPrice": 19.9,
     "onSale": true,
-    "lastChecked": "2025-05-05T08:13:53.635Z",
+    "lastChecked": "2025-05-05T10:30:12.941Z",
     "emailSent": false,
     "_id": "1746431350634",
     "createdAt": "2025-05-05T07:49:10.634Z",
-    "updatedAt": "2025-05-05T08:13:53.636Z"
+    "updatedAt": "2025-05-05T10:30:12.942Z"
   },
   {
     "url": "https://www.uniqlo.com/nl/nl/products/E475296-000/00?colorDisplayCode=55",
@@ -17,11 +17,11 @@
     "currentPrice": 49.9,
     "originalPrice": 49.9,
     "onSale": false,
-    "lastChecked": "2025-05-05T08:13:53.637Z",
+    "lastChecked": "2025-05-05T10:30:23.285Z",
     "emailSent": false,
     "_id": "1746431370942",
     "createdAt": "2025-05-05T07:49:30.942Z",
-    "updatedAt": "2025-05-05T08:13:53.638Z"
+    "updatedAt": "2025-05-05T10:30:23.285Z"
   },
   {
     "url": "https://www.uniqlo.com/nl/nl/products/E453754-000/00?colorDisplayCode=69&sizeDisplayCode=004",
@@ -29,10 +29,34 @@
     "currentPrice": 39.9,
     "originalPrice": 39.9,
     "onSale": false,
-    "lastChecked": "2025-05-05T08:13:53.639Z",
+    "lastChecked": "2025-05-05T10:30:31.884Z",
     "emailSent": false,
     "_id": "1746431629317",
     "createdAt": "2025-05-05T07:53:49.317Z",
-    "updatedAt": "2025-05-05T08:13:53.640Z"
+    "updatedAt": "2025-05-05T10:30:31.885Z"
+  },
+  {
+    "url": "https://www.uniqlo.com/nl/nl/products/E422992-000/02?colorDisplayCode=62&sizeDisplayCode=007",
+    "name": "Heren T-Shirt met Ronde Hals",
+    "currentPrice": 5.9,
+    "originalPrice": 14.9,
+    "onSale": true,
+    "lastChecked": "2025-05-05T10:30:40.013Z",
+    "emailSent": false,
+    "_id": "1746436970635",
+    "createdAt": "2025-05-05T09:22:50.635Z",
+    "updatedAt": "2025-05-05T10:30:40.013Z"
+  },
+  {
+    "url": "https://www.uniqlo.com/nl/nl/products/E474390-000/00?colorDisplayCode=69&sizeDisplayCode=130",
+    "name": "Kids Ultra Stretch Sweatshirt met Print",
+    "currentPrice": 14.9,
+    "originalPrice": 19.9,
+    "onSale": true,
+    "lastChecked": "2025-05-05T10:30:58.528Z",
+    "emailSent": false,
+    "_id": "1746441058528",
+    "createdAt": "2025-05-05T10:30:58.528Z",
+    "updatedAt": "2025-05-05T10:30:58.528Z"
   }
 ]

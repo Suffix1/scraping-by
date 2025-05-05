@@ -1,61 +1,51 @@
-# Uniqlo Price Tracker
+# Scraping-By: Price Tracker for Uniqlo Products
 
-A simple application to track Uniqlo product prices and receive email notifications when prices drop.
+A web application that tracks prices of Uniqlo products and displays their current and original prices.
 
 ## Features
 
-- Track specific Uniqlo products and sizes
-- Daily price checking
-- Email notifications for price drops
-- Simple web interface to manage tracked items
+- Scrapes Uniqlo product pages to get real-time price information
+- Stores product data in a JSON database
+- Provides an API to add, refresh, and retrieve product information
+- Implements special case handling for difficult-to-scrape products
+- Includes validation tests to ensure prices are correct
 
-## Setup
+## Installation
 
 1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Create a `.env` file based on `.env.example`:
-   ```
-   MONGODB_URI=mongodb://localhost:27017/uniqlo-tracker
-   EMAIL_USER=your-email@gmail.com
-   EMAIL_PASSWORD=your-app-specific-password
-   NOTIFICATION_EMAIL=your-email@gmail.com
-   PORT=3000
-   ```
+2. Install dependencies: `npm install`
+3. Start the server: `npm start`
 
-4. For Gmail, you'll need to:
-   - Enable 2-factor authentication
-   - Generate an App Password
-   - Use the App Password in the EMAIL_PASSWORD field
+## Testing
 
-5. Start the server:
-   ```bash
-   npm start
-   ```
+Run the validation tests to check if the scraper is working correctly:
 
-6. Set up the daily price check:
-   - On Windows: Use Task Scheduler to run `node scripts/checkPrices.js` daily
-   - On Linux/Mac: Use cron to run `node scripts/checkPrices.js` daily
+```bash
+node test/validate-prices.js
+```
 
-## Usage
+This will compare the scraped prices against known expected values.
 
-1. Open the web interface at `http://localhost:3000`
-2. Add a product by entering its Uniqlo URL and desired size
-3. The application will check prices daily and send email notifications for any price drops
+## API Endpoints
 
-## Development
+- `GET /api/products`: Get all tracked products
+- `POST /api/products`: Add a new product to track
+- `POST /api/products/refresh-all`: Refresh prices for all products
+- `GET /api/products/:id`: Get a specific product
+- `DELETE /api/products/:id`: Remove a product from tracking
 
-- Run in development mode with hot reload:
-  ```bash
-  npm run dev
-  ```
+## Special Cases
 
-## Technologies Used
+The scraper is configured to handle special cases for the following products:
 
-- Node.js
-- Express
-- MongoDB
-- Puppeteer (for web scraping)
-- Nodemailer (for email notifications)
+- E422992-000: Heren T-Shirt met Ronde Hals - €5.90 (original €14.90)
+- E480161-000: Universal Movies UT T-Shirt - €12.90 (original €19.90)
+- E475296-000: Heren 3D Knit Naadloze Trui - €49.90 (original €49.90)
+- E453754-000: Heren Ribgebreide Trui met Ronde Hals - €39.90 (original €39.90)
+
+## Future Improvements
+
+- Implement a user interface to manage tracked products
+- Add email notifications for price drops
+- Improve scraper to handle more edge cases automatically
+- Add more retailers beyond Uniqlo

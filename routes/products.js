@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ message: 'URL is required' });
         }
         
-        // Scrape product information
+        // Regular scraping process for all products
         console.log(`Checking price for ${url}...`);
         const productInfo = await scrapeUniqloProduct(url);
         console.log(`Found product: ${productInfo.name}, Current price: €${productInfo.currentPrice}, Original price: €${productInfo.originalPrice}`);
@@ -68,16 +68,26 @@ router.post('/refresh-all', async (req, res) => {
         for (const product of products) {
             try {
                 console.log(`Refreshing price for ${product.name}...`);
-                const productInfo = await scrapeUniqloProduct(product.url);
+                console.log(`Current database values - Current: €${product.currentPrice}, Original: €${product.originalPrice}`);
                 
+                const productInfo = await scrapeUniqloProduct(product.url);
+                console.log(`Scraped values - Current: €${productInfo.currentPrice}, Original: €${productInfo.originalPrice}`);
+                
+                // Regular price update for all products
                 if (productInfo.currentPrice < product.currentPrice) {
                     results.priceDrops++;
+                    console.log(`Price drop detected: €${product.currentPrice} -> €${productInfo.currentPrice}`);
                 }
                 
                 await Product.findByIdAndUpdate(product._id, {
                     currentPrice: productInfo.currentPrice,
+                    originalPrice: productInfo.originalPrice,
                     lastChecked: new Date().toISOString()
                 });
+                
+                // Verify the update worked
+                const updatedProduct = await Product.findById(product._id);
+                console.log(`After update - Current: €${updatedProduct.currentPrice}, Original: €${updatedProduct.originalPrice}`);
                 
                 results.updated++;
                 console.log(`Successfully updated ${product.name}`);

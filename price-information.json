@@ -1,0 +1,245 @@
+{
+  "priceElements": [
+    {
+      "text": "5,90 €14,90 €",
+      "className": "fr-ec-price fr-ec-mb-spacing-02",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "price is 5,90 €",
+      "fullHtml": "<div class=\"fr-ec-price fr-ec-mb-spacing-02\" aria-label=\"price is 5,90 €\"><div class=\"fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline fr-ec-price__wrapper\"><p class=\"fr-ec-price-text fr-ec-price-text--large fr-ec-price-text--color-promotional fr-ec-text-transform-normal fr-ec-price__children\">5,90 €</p><div class=\"fr-ec-price__original-price\"><p class=\"fr-ec-price-text fr-ec-price-text--extra-small fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal fr-ec-price__strike-through\">14,90 €</p></div></div></div>"
+    },
+    {
+      "text": "5,90 €14,90 €",
+      "className": "fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline fr-ec-price__wrapper",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<div class=\"fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline fr-ec-price__wrapper\"><p class=\"fr-ec-price-text fr-ec-price-text--large fr-ec-price-text--color-promotional fr-ec-text-transform-normal fr-ec-price__children\">5,90 €</p><div class=\"fr-ec-price__original-price\"><p class=\"fr-ec-price-text fr-ec-price-text--extra-small fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal fr-ec-price__strike-through\">14,90 €</p></div></div>"
+    },
+    {
+      "text": "5,90 €",
+      "className": "fr-ec-price-text fr-ec-price-text--large fr-ec-price-text--color-promotional fr-ec-text-transform-normal fr-ec-price__children",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<p class=\"fr-ec-price-text fr-ec-price-text--large fr-ec-price-text--color-promotional fr-ec-text-transform-normal fr-ec-price__children\">5,90 €</p>"
+    },
+    {
+      "text": "14,90 €",
+      "className": "fr-ec-price__original-price",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<div class=\"fr-ec-price__original-price\"><p class=\"fr-ec-price-text fr-ec-price-text--extra-small fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal fr-ec-price__strike-through\">14,90 €</p></div>"
+    },
+    {
+      "text": "14,90 €",
+      "className": "fr-ec-price-text fr-ec-price-text--extra-small fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal fr-ec-price__strike-through",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<p class=\"fr-ec-price-text fr-ec-price-text--extra-small fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal fr-ec-price__strike-through\">14,90 €</p>"
+    },
+    {
+      "text": "5,90 €14,90 €",
+      "className": "fr-ec-price fr-ec-mt-spacing-01",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "price is 5,90 €",
+      "fullHtml": "<div class=\"fr-ec-price fr-ec-mt-spacing-01\" aria-label=\"price is 5,90 €\"><div class=\"fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline fr-ec-price__wrapper\"><p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-promotional fr-ec-text-transform-normal fr-ec-price__children\">5,90 €</p><div class=\"fr-ec-price__original-price\"><p class=\"fr-ec-price-text fr-ec-price-text--extra-small fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal fr-ec-price__strike-through\">14,90 €</p></div></div></div>"
+    },
+    {
+      "text": "5,90 €14,90 €",
+      "className": "fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline fr-ec-price__wrapper",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<div class=\"fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline fr-ec-price__wrapper\"><p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-promotional fr-ec-text-transform-normal fr-ec-price__children\">5,90 €</p><div class=\"fr-ec-price__original-price\"><p class=\"fr-ec-price-text fr-ec-price-text--extra-small fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal fr-ec-price__strike-through\">14,90 €</p></div></div>"
+    },
+    {
+      "text": "5,90 €",
+      "className": "fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-promotional fr-ec-text-transform-normal fr-ec-price__children",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-promotional fr-ec-text-transform-normal fr-ec-price__children\">5,90 €</p>"
+    },
+    {
+      "text": "14,90 €",
+      "className": "fr-ec-price__original-price",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<div class=\"fr-ec-price__original-price\"><p class=\"fr-ec-price-text fr-ec-price-text--extra-small fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal fr-ec-price__strike-through\">14,90 €</p></div>"
+    },
+    {
+      "text": "14,90 €",
+      "className": "fr-ec-price-text fr-ec-price-text--extra-small fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal fr-ec-price__strike-through",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<p class=\"fr-ec-price-text fr-ec-price-text--extra-small fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal fr-ec-price__strike-through\">14,90 €</p>"
+    },
+    {
+      "text": "14,90 €",
+      "className": "fr-ec-price fr-ec-mt-spacing-01",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "price is 14,90 €",
+      "fullHtml": "<div class=\"fr-ec-price fr-ec-mt-spacing-01\" aria-label=\"price is 14,90 €\"><div class=\"fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline\"><p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">14,90 €</p></div></div>"
+    },
+    {
+      "text": "14,90 €",
+      "className": "fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">14,90 €</p>"
+    },
+    {
+      "text": "7,90 €",
+      "className": "fr-ec-price fr-ec-mt-spacing-01",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "price is 7,90 €",
+      "fullHtml": "<div class=\"fr-ec-price fr-ec-mt-spacing-01\" aria-label=\"price is 7,90 €\"><div class=\"fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline\"><p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">7,90 €</p></div></div>"
+    },
+    {
+      "text": "7,90 €",
+      "className": "fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">7,90 €</p>"
+    },
+    {
+      "text": "24,90 €",
+      "className": "fr-ec-price fr-ec-mt-spacing-01",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "price is 24,90 €",
+      "fullHtml": "<div class=\"fr-ec-price fr-ec-mt-spacing-01\" aria-label=\"price is 24,90 €\"><div class=\"fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline\"><p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">24,90 €</p></div></div>"
+    },
+    {
+      "text": "24,90 €",
+      "className": "fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">24,90 €</p>"
+    },
+    {
+      "text": "24,90 €",
+      "className": "fr-ec-price fr-ec-mt-spacing-01",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "price is 24,90 €",
+      "fullHtml": "<div class=\"fr-ec-price fr-ec-mt-spacing-01\" aria-label=\"price is 24,90 €\"><div class=\"fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline\"><p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">24,90 €</p></div></div>"
+    },
+    {
+      "text": "24,90 €",
+      "className": "fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">24,90 €</p>"
+    },
+    {
+      "text": "14,90 €",
+      "className": "fr-ec-price fr-ec-mt-spacing-01",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "price is 14,90 €",
+      "fullHtml": "<div class=\"fr-ec-price fr-ec-mt-spacing-01\" aria-label=\"price is 14,90 €\"><div class=\"fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline\"><p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">14,90 €</p></div></div>"
+    },
+    {
+      "text": "14,90 €",
+      "className": "fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">14,90 €</p>"
+    },
+    {
+      "text": "19,90 €",
+      "className": "fr-ec-price fr-ec-mt-spacing-01",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "price is 19,90 €",
+      "fullHtml": "<div class=\"fr-ec-price fr-ec-mt-spacing-01\" aria-label=\"price is 19,90 €\"><div class=\"fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline\"><p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">19,90 €</p></div></div>"
+    },
+    {
+      "text": "19,90 €",
+      "className": "fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">19,90 €</p>"
+    },
+    {
+      "text": "14,90 €",
+      "className": "fr-ec-price fr-ec-mt-spacing-01",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "price is 14,90 €",
+      "fullHtml": "<div class=\"fr-ec-price fr-ec-mt-spacing-01\" aria-label=\"price is 14,90 €\"><div class=\"fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline\"><p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">14,90 €</p></div></div>"
+    },
+    {
+      "text": "14,90 €",
+      "className": "fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">14,90 €</p>"
+    },
+    {
+      "text": "19,90 €",
+      "className": "fr-ec-price fr-ec-mt-spacing-01",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "price is 19,90 €",
+      "fullHtml": "<div class=\"fr-ec-price fr-ec-mt-spacing-01\" aria-label=\"price is 19,90 €\"><div class=\"fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline\"><p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">19,90 €</p></div></div>"
+    },
+    {
+      "text": "19,90 €",
+      "className": "fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">19,90 €</p>"
+    },
+    {
+      "text": "24,90 €",
+      "className": "fr-ec-price fr-ec-mt-spacing-01",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "price is 24,90 €",
+      "fullHtml": "<div class=\"fr-ec-price fr-ec-mt-spacing-01\" aria-label=\"price is 24,90 €\"><div class=\"fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline\"><p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">24,90 €</p></div></div>"
+    },
+    {
+      "text": "24,90 €",
+      "className": "fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">24,90 €</p>"
+    },
+    {
+      "text": "99,90 €",
+      "className": "fr-ec-price fr-ec-mt-spacing-01",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "price is 99,90 €",
+      "fullHtml": "<div class=\"fr-ec-price fr-ec-mt-spacing-01\" aria-label=\"price is 99,90 €\"><div class=\"fr-ec-content-alignment fr-ec-content-alignment--direction-row fr-ec-content-alignment--content-flex-start fr-ec-content-alignment--alignment-baseline\"><p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">99,90 €</p></div></div>"
+    },
+    {
+      "text": "99,90 €",
+      "className": "fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal",
+      "id": "No ID",
+      "dataTest": "No data-test",
+      "ariaLabel": "No aria-label",
+      "fullHtml": "<p class=\"fr-ec-price-text fr-ec-price-text--middle fr-ec-price-text--color-primary-dark fr-ec-text-transform-normal\">99,90 €</p>"
+    }
+  ],
+  "priceSections": []
+}
