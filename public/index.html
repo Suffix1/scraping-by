@@ -46,6 +46,19 @@
         .sale {
             color: red;
         }
+        .product-name {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .product-link {
+            color: #2196F3;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .product-link:hover {
+            text-decoration: underline;
+            color: #0b7dda;
+        }
         .status-badge {
             display: inline-block;
             padding: 3px 6px;
@@ -212,8 +225,10 @@
                     productElement.className = 'product-item';
                     productElement.innerHTML = `
                         <div>
-                            <div>
-                                ${product.name}
+                            <div class="product-name">
+                                <a href="${product.url}" target="_blank" class="product-link">
+                                    ${product.name}
+                                </a>
                                 <span class="status-badge ${onSale ? 'on-sale' : 'no-sale'}">
                                     ${onSale ? 'ON SALE' : 'NO SALE'}
                                 </span>
